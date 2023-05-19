@@ -1,5 +1,9 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { Suspense, lazy } from "react";
+const About = lazy(() => import("./About/About"));
+const Documentation = lazy(() => import("./Documentation/Documentation"));
+const GameDisplay = lazy(() => import("./GameDisplay/GameDisplay"));
 
 function App() {
   return (
@@ -21,12 +25,14 @@ function App() {
         </ul>
       </nav>
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/documentation" element={<Documentation />} />
-        <Route path="/game" element={<GameDisplay />} />
-      </Routes>
+      <Suspense>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/documentation" element={<Documentation />} />
+          <Route path="/game" element={<GameDisplay />} />
+        </Routes>
+      </Suspense>
     </Router>
   );
 }
