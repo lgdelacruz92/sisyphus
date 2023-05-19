@@ -11,9 +11,6 @@ function App() {
       <nav>
         <ul>
           <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
             <Link to="/about">About</Link>
           </li>
           <li>
@@ -27,7 +24,6 @@ function App() {
 
       <Suspense>
         <Routes>
-          <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/documentation" element={<Documentation />} />
           <Route path="/game" element={<GameDisplay />} />
