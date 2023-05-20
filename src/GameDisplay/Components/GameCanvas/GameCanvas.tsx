@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
+import { gameSketch } from "./gameSketch";
 
 interface GameCanvasProps {}
 
 const GameCanvas: React.FC<GameCanvasProps> = () => {
-  return <div>{/* Your component code goes here */}</div>;
+  const sketchRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const { cleanup } = gameSketch({
+      width: 400,
+      height: 400,
+      parent: sketchRef.current as HTMLElement,
+    });
+
+    return cleanup;
+  }, []);
+  return <div ref={sketchRef}></div>;
 };
 
 export default GameCanvas;
