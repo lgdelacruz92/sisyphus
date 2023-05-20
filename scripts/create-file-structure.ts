@@ -1,8 +1,8 @@
 import * as fs from "fs";
 import * as path from "path";
 
-function createFileStructure(name: string) {
-  const folderPath = path.join("src", name);
+export function createFileStructure(folder: string, name: string) {
+  const folderPath = path.join("src", folder, name);
   const indexPath = path.join(folderPath, "index.ts");
   const componentPath = path.join(folderPath, `${name}.tsx`);
   const testPath = path.join(folderPath, `${name}.test.tsx`);
@@ -12,12 +12,4 @@ function createFileStructure(name: string) {
   fs.writeFileSync(indexPath, "", "utf-8");
   fs.writeFileSync(componentPath, "", "utf-8");
   fs.writeFileSync(testPath, "", "utf-8");
-}
-
-const name = process.argv[2];
-if (name) {
-  createFileStructure(name);
-  console.log(`File structure created for ${name}`);
-} else {
-  console.error("Please provide a name argument.");
 }
