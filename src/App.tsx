@@ -14,14 +14,16 @@ function App() {
         <nav>
           <Flex w="100%" justifyContent="space-between">
             <Flex>
-              <UpDownIcon />
-              <UpDownIcon />
-              <UpDownIcon />
+              <Link to="/game">
+                <UpDownIcon />
+                <UpDownIcon />
+                <UpDownIcon />
+              </Link>
             </Flex>
             <Flex gap={3}>
+              <Link to="/game">Game</Link>
               <Link to="/about">About</Link>
               <Link to="/documentation">Documentation</Link>
-              <Link to="/game">Game</Link>
             </Flex>
           </Flex>
         </nav>
