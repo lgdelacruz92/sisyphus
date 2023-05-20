@@ -1,6 +1,8 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { Suspense, lazy } from "react";
+import { Box, Flex } from "@chakra-ui/react";
+import { UpDownIcon } from "@chakra-ui/icons";
 const About = lazy(() => import("./About/About"));
 const Documentation = lazy(() => import("./Documentation/Documentation"));
 const GameDisplay = lazy(() => import("./GameDisplay/GameDisplay"));
@@ -8,19 +10,22 @@ const GameDisplay = lazy(() => import("./GameDisplay/GameDisplay"));
 function App() {
   return (
     <Router>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-          <li>
-            <Link to="/documentation">Documentation</Link>
-          </li>
-          <li>
-            <Link to="/game">Game</Link>
-          </li>
-        </ul>
-      </nav>
+      <Box p="2" px="5">
+        <nav>
+          <Flex w="100%" justifyContent="space-between">
+            <Flex>
+              <UpDownIcon />
+              <UpDownIcon />
+              <UpDownIcon />
+            </Flex>
+            <Flex gap={3}>
+              <Link to="/about">About</Link>
+              <Link to="/documentation">Documentation</Link>
+              <Link to="/game">Game</Link>
+            </Flex>
+          </Flex>
+        </nav>
+      </Box>
 
       <Suspense>
         <Routes>
