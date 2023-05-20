@@ -26,6 +26,7 @@ function App() {
         <Routes>
           <Route path="/about" element={<About />} />
           <Route path="/documentation" element={<Documentation />} />
+          <Route path="/" element={<GameDisplay />} />
           <Route path="/game" element={<GameDisplay />} />
         </Routes>
       </Suspense>
