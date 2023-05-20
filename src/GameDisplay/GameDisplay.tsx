@@ -9,6 +9,10 @@ const GameDisplay: React.FC<GameDisplayProps> = () => {
       <Box as="section" aria-label="Game Window">
         <Heading as="h2">Super Solopreneur</Heading>
       </Box>
+
+      <Box as="section" aria-label="Highest Scores">
+        <Heading as="h2">Highest Scores</Heading>
+      </Box>
     </Center>
   );
 };
