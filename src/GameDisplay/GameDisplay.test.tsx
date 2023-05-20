@@ -1,2 +1,8 @@
 import { render, screen } from "@testing-library/react";
-describe("GameDisplay.test.tsx", () => {});
+import GameDisplay from "./GameDisplay";
+describe("GameDisplay.test.tsx", () => {
+  test("game section", () => {
+    render(<GameDisplay />);
+    expect(screen.getByRole("region", { name: /Game Window/i })).toBeVisible();
+  });
+});
