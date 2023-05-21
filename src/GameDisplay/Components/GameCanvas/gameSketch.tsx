@@ -50,8 +50,10 @@ const gameSketch = ({
     };
     p5.draw = () => {
       p5.background(255);
-      boy.showJump();
+
+      boy.show();
       boy.animate();
+      boy.update();
     };
   };
 

@@ -10,6 +10,8 @@ class Boy {
   speed: number;
   index: number;
   p5: P5;
+  vel: number;
+  g: number;
   constructor(
     animation: AnimationType,
     jumpAnimation: AnimationType,
@@ -27,6 +29,18 @@ class Boy {
     this.speed = speed;
     this.index = 0;
     this.p5 = p5;
+    this.vel = 0;
+    this.g = 0.5;
+  }
+
+  show() {
+    if (this.y + this.vel < this.p5.height - 144) {
+      this.vel += this.g;
+      this.y += this.vel;
+      this.showJump();
+    } else {
+      this.showRun();
+    }
   }
 
   showRun() {
@@ -35,12 +49,17 @@ class Boy {
   }
 
   showJump() {
-    let index = this.p5.floor(this.index) % this.jumpAnimation.length;
-    this.p5.image(this.jumpAnimation[index], this.x, this.y);
+    this.p5.image(this.jumpAnimation[0], this.x, this.y);
   }
 
   animate() {
     this.index += this.speed;
+  }
+
+  update() {
+    if (this.p5.keyIsDown(this.p5.UP_ARROW) && this.y > this.p5.height - 150) {
+      this.vel = -12;
+    }
   }
 }
 
