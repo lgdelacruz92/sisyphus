@@ -3,6 +3,7 @@ type AnimationType = Array<P5.Image>;
 class Boy {
   x: number;
   animation: AnimationType;
+  jumpAnimation: AnimationType;
   y: number;
   w: number;
   len: number;
@@ -11,6 +12,7 @@ class Boy {
   p5: P5;
   constructor(
     animation: AnimationType,
+    jumpAnimation: AnimationType,
     x: number,
     y: number,
     speed: number,
@@ -19,6 +21,7 @@ class Boy {
     this.x = x;
     this.y = y;
     this.animation = animation;
+    this.jumpAnimation = jumpAnimation;
     this.w = this.animation[0].width;
     this.len = this.animation.length;
     this.speed = speed;
@@ -26,9 +29,14 @@ class Boy {
     this.p5 = p5;
   }
 
-  show() {
+  showRun() {
     let index = this.p5.floor(this.index) % this.len;
     this.p5.image(this.animation[index], this.x, this.y);
+  }
+
+  showJump() {
+    let index = this.p5.floor(this.index) % this.jumpAnimation.length;
+    this.p5.image(this.jumpAnimation[index], this.x, this.y);
   }
 
   animate() {
