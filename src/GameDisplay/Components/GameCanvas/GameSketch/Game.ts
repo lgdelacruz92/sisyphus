@@ -111,7 +111,10 @@ class Game {
           name: "collision",
           props: { body1: this.boy, body2: this.obstacle },
         });
-        this.publishEvent({ name: "game-over", props: { score: this.score } });
+        this.publishEvent({
+          name: "game-over",
+          props: { score: Math.floor(this.score) },
+        });
         this.gameOver = true;
         this.gameStarted = false;
         this.score = 0;
