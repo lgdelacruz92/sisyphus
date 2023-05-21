@@ -9,8 +9,12 @@ const GameCanvas: React.FC<GameCanvasProps> = () => {
   useEffect(() => {
     const game = new Game(400, 400, sketchRef.current as HTMLElement);
     game.start();
+    game.subscribe("collision-eventlistener", (props: any) => {
+      console.log(props);
+    });
 
     return () => {
+      game.unsubscribe("collision-eventlistener");
       game.end();
     };
   }, []);

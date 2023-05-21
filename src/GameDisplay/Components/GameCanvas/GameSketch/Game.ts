@@ -65,6 +65,7 @@ class Game {
       );
       this.obstacle = new Obstacle(p5.width, p5.height - 40, 4, p5);
       this.initialized = true;
+      this.publishEvent({ name: "game-started" });
     }
   }
 
@@ -98,6 +99,7 @@ class Game {
         this.gameStarted = true;
         this.initialized = true;
         this.obstacle?.setPosX(p5.width);
+        this.publishEvent({ name: "game-started" });
       }
       return;
     }
@@ -105,6 +107,11 @@ class Game {
       if (this.boy.collides(this.obstacle)) {
         this.gameOver = true;
         this.gameStarted = false;
+        this.publishEvent({
+          name: "collision",
+          props: { body1: this.boy, body2: this.obstacle },
+        });
+        this.publishEvent({ name: "game-over" });
       }
 
       this.boy?.update();
@@ -113,6 +120,19 @@ class Game {
       this.boy?.addSpeed(this.score / 1000);
       this.obstacle?.addSpeed(this.score / 1000);
     }
+  }
+
+  public subscribe(id: string, callback: (props: any) => void): void {
+    this.evenListeners.push({ id, callback });
+  }
+
+  public unsubscribe(id: string): void {
+    const eventIndex = this.evenListeners.findIndex((event) => event.id === id);
+    this.evenListeners.splice(eventIndex, 1);
+  }
+
+  private publishEvent({ name, props }: { name: string; props?: object }) {
+    this.evenListeners.forEach(({ id, callback }) => callback({ name, props }));
   }
 
   public start(): void {
@@ -140,6 +160,7 @@ class Game {
   }
 
   public end(): void {
+    this.publishEvent({ name: "game-ended" });
     this.p5?.remove();
     this.gameStarted = false;
   }
