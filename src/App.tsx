@@ -7,6 +7,11 @@ const About = lazy(() => import("./About/About"));
 const Documentation = lazy(() => import("./Documentation/Documentation"));
 const GameDisplay = lazy(() => import("./GameDisplay/GameDisplay"));
 
+// Main view of the app to configure the routing
+/**
+ * Defaults to /game
+ *
+ */
 function App() {
   return (
     <Router>
@@ -20,6 +25,8 @@ function App() {
                 <UpDownIcon />
               </Link>
             </Flex>
+
+            {/**This is a navigation link */}
             <Flex gap={3}>
               <Link to="/game">Game</Link>
               <Link to="/about">About</Link>
@@ -29,6 +36,7 @@ function App() {
         </nav>
       </Box>
 
+      {/** Routes to ensure pages. Also using suspense to ensure optimization on lazy loading */}
       <Suspense>
         <Routes>
           <Route path="/about" element={<About />} />
