@@ -1,6 +1,6 @@
 import { Box, Center, Heading, Stack } from "@chakra-ui/react";
 import React from "react";
-import GameCanvas from "./Components/GameCanvas";
+import GameContainer from "./Components/GameContainer";
 
 interface GameDisplayProps {}
 
@@ -13,7 +13,7 @@ const GameDisplay: React.FC<GameDisplayProps> = () => {
             Super Solopreneur
           </Heading>
           <Box aria-label="Game Canvas">
-            <GameCanvas />
+            <GameContainer />
           </Box>
         </Box>
 

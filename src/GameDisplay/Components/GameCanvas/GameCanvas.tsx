@@ -1,87 +1,34 @@
-import React, { useRef, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Game } from "./GameSketch/Game";
-import {
-  Button,
-  FormControl,
-  FormLabel,
-  Heading,
-  Input,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-} from "@chakra-ui/react";
 
-interface GameCanvasProps {}
+interface GameCanvasProps {
+  onGameOver: (props: any) => void;
+}
 
-const GameCanvas: React.FC<GameCanvasProps> = () => {
+const GameCanvas: React.FC<GameCanvasProps> = ({ onGameOver }) => {
   const sketchRef = useRef<HTMLDivElement>(null);
-  const [gameOverState, setGameOverState] = useState<any>(null);
-  const [isOpen, setIsOpen] = useState(false);
-  const [playerName, setPlayerName] = useState("");
-  const [playerScore, setPlayerScore] = useState(0);
+
+  const handleCollisionEvent = useCallback(
+    (props: any) => {
+      if (props.name === "game-over") {
+        onGameOver(props.props);
+      }
+    },
+    [onGameOver]
+  );
 
   useEffect(() => {
     const game = new Game(400, 400, sketchRef.current as HTMLElement);
     game.start();
-    game.subscribe("collision-eventlistener", (props: any) => {
-      if (props.name === "game-over") {
-        setGameOverState(props.props);
-      }
-    });
+    game.subscribe("collision-eventlistener", handleCollisionEvent);
 
     return () => {
       game.unsubscribe("collision-eventlistener");
       game.end();
     };
-  }, []);
+  }, [handleCollisionEvent]);
 
-  const onFormSubmit = (event: any) => {
-    console.log(event);
-  };
-
-  useEffect(() => {
-    if (gameOverState) {
-      setIsOpen(true);
-    }
-  }, [gameOverState]);
-
-  const handleClose = () => {
-    setIsOpen(false);
-  };
-  return (
-    <>
-      <div ref={sketchRef}></div>
-      <Modal isOpen={isOpen} onClose={handleClose}>
-        <ModalOverlay />
-        <form onSubmit={onFormSubmit}>
-          <ModalContent>
-            <ModalHeader>Game Over</ModalHeader>
-            <Heading textAlign="center">
-              Score {gameOverState ? gameOverState.score : ""}
-            </Heading>
-            <ModalCloseButton />
-            <ModalBody>
-              <FormControl id="name" isRequired>
-                <FormLabel>Name</FormLabel>
-                <Input
-                  type="text"
-                  value={playerName}
-                  onChange={(e) => setPlayerName(e.target.value)}
-                />
-              </FormControl>
-            </ModalBody>
-            <ModalFooter>
-              <Button type="submit">Submit</Button>
-            </ModalFooter>
-          </ModalContent>
-        </form>
-      </Modal>
-    </>
-  );
+  return <div ref={sketchRef}></div>;
 };
 
 export default GameCanvas;
