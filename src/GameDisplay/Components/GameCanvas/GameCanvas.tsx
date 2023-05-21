@@ -2,18 +2,21 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Game } from "./GameSketch/Game";
 import GameOverModal from "../GameOverModal";
 
-interface GameCanvasProps {}
+interface GameCanvasProps {
+  onScoreSubmit: ({ name, score }: { name: string; score: number }) => void;
+}
 
-const GameCanvas: React.FC<GameCanvasProps> = () => {
+const GameCanvas: React.FC<GameCanvasProps> = ({ onScoreSubmit }) => {
   const sketchRef = useRef<HTMLDivElement>(null);
   const [gameState, setGameState] = useState<any>(null);
-
+  console.log(gameState);
   const handleModalClose = () => {
     setGameState(null);
   };
 
   const handleModalSubmit = (name: string) => {
-    setGameState(null);
+    onScoreSubmit({ name, score: gameState.score });
+    handleModalClose();
   };
 
   const handleCollisionEvent = useCallback(

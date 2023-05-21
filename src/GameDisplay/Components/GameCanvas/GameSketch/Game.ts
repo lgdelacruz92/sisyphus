@@ -88,7 +88,7 @@ class Game {
   private drawScore(p5: P5): void {
     p5.fill(0);
     p5.textSize(32);
-    p5.text(`Score: ${Math.floor(this.score)}`, 200, 40);
+    p5.text(`Score: ${Math.floor(this.score)}`, p5.width / 2 - 70, 40);
     p5.fill(255);
   }
 
