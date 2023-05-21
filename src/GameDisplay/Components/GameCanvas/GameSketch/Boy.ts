@@ -6,6 +6,7 @@ class Boy implements Entity {
   private index: number;
   private vely: number;
   private yOffset: number;
+  private originalY: number;
   constructor(
     private runAnimation: any[],
     private jumpAnimation: any[],
@@ -18,6 +19,7 @@ class Boy implements Entity {
     this.index = 0;
     this.vely = 0;
     this.yOffset = 137;
+    this.originalY = y;
   }
 
   show(): void {
@@ -40,6 +42,16 @@ class Boy implements Entity {
     if (this.p5.keyIsDown(this.p5.UP_ARROW) && this.y > this.p5.height - 150) {
       this.vely = -12;
     }
+  }
+
+  collides(entity: Entity) {
+    return (
+      entity.getPosX() < this.x + 50 && Math.abs(this.y - this.originalY) < 20
+    );
+  }
+
+  getPosX(): number {
+    return this.x;
   }
 }
 

@@ -3,7 +3,6 @@ import { Entity } from "./Entity";
 
 class Obstacle implements Entity {
   constructor(
-    private image: any,
     private x: number,
     private y: number,
     private velx: number,
@@ -25,6 +24,14 @@ class Obstacle implements Entity {
     if (this.x + 20 < 0) {
       this.x = this.p5.width + 20;
     }
+  }
+
+  collides(entity: Entity): boolean {
+    return false;
+  }
+
+  getPosX(): number {
+    return this.x;
   }
 }
 

@@ -11,6 +11,7 @@ class Game {
   private initialized: boolean;
   private gameStarted: boolean;
   private p5: P5 | null;
+  private gameOver = false;
 
   constructor(
     private width: number,
@@ -60,16 +61,30 @@ class Game {
         0.2,
         p5
       );
-      this.obstacle = new Obstacle(runAnimation[0], 0, p5.height - 40, 4, p5);
+      this.obstacle = new Obstacle(p5.width, p5.height - 40, 4, p5);
       this.initialized = true;
     }
   }
 
   private drawEntities(p5: P5): void {
+    if (this.gameOver) {
+      if (p5.keyIsDown(p5.ENTER)) {
+        this.gameOver = false;
+        this.gameStarted = true;
+        this.initialized = true;
+      }
+      return;
+    }
     if (this.initialized && this.boy && this.obstacle && this.gameStarted) {
       p5.background(255);
 
+      if (this.boy.collides(this.obstacle)) {
+        this.gameOver = true;
+        this.gameStarted = false;
+        console.log("collided");
+      }
       this.boy.show();
+
       this.boy.animate();
       this.boy.update();
 
