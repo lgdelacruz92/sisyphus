@@ -4,4 +4,5 @@ export interface Entity {
   update(): void;
   collides(entity: Entity): boolean;
   getPosX(): number;
+  setPosX(x: number): void;
 }

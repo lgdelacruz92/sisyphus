@@ -72,6 +72,7 @@ class Game {
         this.gameOver = false;
         this.gameStarted = true;
         this.initialized = true;
+        this.obstacle?.setPosX(p5.width);
       }
       return;
     }
@@ -81,7 +82,6 @@ class Game {
       if (this.boy.collides(this.obstacle)) {
         this.gameOver = true;
         this.gameStarted = false;
-        console.log("collided");
       }
       this.boy.show();
 

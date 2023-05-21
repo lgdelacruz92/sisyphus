@@ -53,6 +53,8 @@ class Boy implements Entity {
   getPosX(): number {
     return this.x;
   }
+
+  setPosX(x: number): void {}
 }
 
 export { Boy };

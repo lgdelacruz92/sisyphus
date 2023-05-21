@@ -33,6 +33,10 @@ class Obstacle implements Entity {
   getPosX(): number {
     return this.x;
   }
+
+  setPosX(x: number): void {
+    this.x = x;
+  }
 }
 
 export { Obstacle };
