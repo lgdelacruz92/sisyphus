@@ -8,6 +8,7 @@ const GameCanvas: React.FC<GameCanvasProps> = () => {
 
   useEffect(() => {
     const game = new Game(400, 400, sketchRef.current as HTMLElement);
+
     game.start();
 
     return () => {
