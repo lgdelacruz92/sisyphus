@@ -13,6 +13,8 @@ class Game {
   private p5: P5 | null;
   private gameOver = false;
   private score = 0;
+
+  private evenListeners: any[] = [];
   constructor(
     private width: number,
     private height: number,
@@ -75,11 +77,6 @@ class Game {
       this.gameStarted
     ) {
       p5.background(255);
-
-      if (this.boy.collides(this.obstacle)) {
-        this.gameOver = true;
-        this.gameStarted = false;
-      }
       this.boy.show();
 
       this.boy.animate();
@@ -105,6 +102,11 @@ class Game {
       return;
     }
     if (this.initialized && this.boy && this.obstacle && this.gameStarted) {
+      if (this.boy.collides(this.obstacle)) {
+        this.gameOver = true;
+        this.gameStarted = false;
+      }
+
       this.boy?.update();
       this.obstacle?.update();
       this.score += 0.01;
