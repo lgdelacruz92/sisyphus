@@ -55,6 +55,10 @@ class Boy implements Entity {
   }
 
   setPosX(x: number): void {}
+
+  addSpeed(x: number): void {
+    this.velx += x;
+  }
 }
 
 export { Boy };

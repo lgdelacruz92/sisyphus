@@ -5,4 +5,5 @@ export interface Entity {
   collides(entity: Entity): boolean;
   getPosX(): number;
   setPosX(x: number): void;
+  addSpeed(x: number): void;
 }

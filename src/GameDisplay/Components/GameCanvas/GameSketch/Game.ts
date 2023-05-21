@@ -12,7 +12,7 @@ class Game {
   private gameStarted: boolean;
   private p5: P5 | null;
   private gameOver = false;
-
+  private score = 0;
   constructor(
     private width: number,
     private height: number,
@@ -67,6 +67,34 @@ class Game {
   }
 
   private drawEntities(p5: P5): void {
+    if (
+      !this.gameOver &&
+      this.initialized &&
+      this.boy &&
+      this.obstacle &&
+      this.gameStarted
+    ) {
+      p5.background(255);
+
+      if (this.boy.collides(this.obstacle)) {
+        this.gameOver = true;
+        this.gameStarted = false;
+      }
+      this.boy.show();
+
+      this.boy.animate();
+      this.obstacle.show();
+    }
+  }
+
+  private drawScore(p5: P5): void {
+    p5.fill(0);
+    p5.textSize(32);
+    p5.text(`Score: ${Math.floor(this.score)}`, 200, 40);
+    p5.fill(255);
+  }
+
+  private updateGame(p5: P5): void {
     if (this.gameOver) {
       if (p5.keyIsDown(p5.ENTER)) {
         this.gameOver = false;
@@ -77,19 +105,11 @@ class Game {
       return;
     }
     if (this.initialized && this.boy && this.obstacle && this.gameStarted) {
-      p5.background(255);
-
-      if (this.boy.collides(this.obstacle)) {
-        this.gameOver = true;
-        this.gameStarted = false;
-      }
-      this.boy.show();
-
-      this.boy.animate();
-      this.boy.update();
-
-      this.obstacle.show();
-      this.obstacle.update();
+      this.boy?.update();
+      this.obstacle?.update();
+      this.score += 0.01;
+      this.boy?.addSpeed(this.score / 1000);
+      this.obstacle?.addSpeed(this.score / 1000);
     }
   }
 
@@ -108,6 +128,8 @@ class Game {
 
       p5.draw = () => {
         this.drawEntities(p5);
+        this.drawScore(p5);
+        this.updateGame(p5);
       };
     };
 

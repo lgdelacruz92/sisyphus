@@ -22,7 +22,7 @@ class Obstacle implements Entity {
   update(): void {
     this.x -= this.velx;
     if (this.x + 20 < 0) {
-      this.x = this.p5.width + 20;
+      this.x = this.p5.width + Math.random() * 200;
     }
   }
 
@@ -36,6 +36,9 @@ class Obstacle implements Entity {
 
   setPosX(x: number): void {
     this.x = x;
+  }
+  addSpeed(x: number): void {
+    this.velx += x;
   }
 }
 
