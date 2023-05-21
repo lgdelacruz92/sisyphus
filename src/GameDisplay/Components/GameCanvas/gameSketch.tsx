@@ -2,6 +2,7 @@ import P5 from "p5";
 import boyRun from "../../json/boy-run.json";
 import boyJump from "../../json/boy-jump.json";
 import { Boy } from "./boy";
+import { Obstacle } from "./obstacle";
 type GameSketchReturnType = {
   cleanup: () => void;
 };
@@ -19,6 +20,7 @@ const gameSketch = ({
     const runAnimation: any = [];
     const jumpAnimation: any = [];
     let boy: Boy;
+    let obstacle: Obstacle;
     p5.preload = () => {
       spriteSheet = p5.loadImage("images/boy-run.jpg");
       jumpSpritSheet = p5.loadImage("images/boy-jump.png");
@@ -46,7 +48,9 @@ const gameSketch = ({
         );
         jumpAnimation.push(image);
       }
+
       boy = new Boy(runAnimation, jumpAnimation, 0, p5.height - 137, 0.2, p5);
+      obstacle = new Obstacle(runAnimation[0], 0, p5.height - 40, 2, p5);
     };
     p5.draw = () => {
       p5.background(255);
@@ -54,6 +58,9 @@ const gameSketch = ({
       boy.show();
       boy.animate();
       boy.update();
+
+      obstacle.show();
+      obstacle.update();
     };
   };
 
