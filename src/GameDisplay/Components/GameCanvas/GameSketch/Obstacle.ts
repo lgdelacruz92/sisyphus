@@ -3,6 +3,8 @@ import { Entity } from "./Entity";
 
 class Obstacle implements Entity {
   private originalVelX: number;
+  private obtaclesList: string[] = [];
+  private obtacleIndex: number = 0;
   constructor(
     private x: number,
     private y: number,
@@ -10,11 +12,21 @@ class Obstacle implements Entity {
     private p5: P5
   ) {
     this.originalVelX = velx;
+    this.obtaclesList = [
+      "tax",
+      "bad-hire",
+      "revenue",
+      "interests",
+      "customer",
+      "competition",
+    ];
+    this.obtacleIndex = Math.floor(Math.random() * this.obtaclesList.length);
   }
 
   show(): void {
     this.p5.fill(0);
-    this.p5.rect(this.x, this.y, 20, 20);
+    this.p5.textSize(16);
+    this.p5.text(this.obtaclesList[this.obtacleIndex], this.x, this.y);
     this.p5.fill(255);
   }
 
@@ -26,6 +38,7 @@ class Obstacle implements Entity {
     this.x -= this.velx;
     if (this.x + 20 < 0) {
       this.x = this.p5.width + Math.random() * 500;
+      this.obtacleIndex = Math.floor(Math.random() * this.obtaclesList.length);
     }
   }
 
