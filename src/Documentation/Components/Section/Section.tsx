@@ -4,11 +4,12 @@ import React from "react";
 interface SectionProps {
   title: string;
   children: React.ReactNode;
+  id: string;
 }
 
-const Section: React.FC<SectionProps> = ({ title, children }) => {
+const Section: React.FC<SectionProps> = ({ title, children, id }) => {
   return (
-    <Box>
+    <Box id={id}>
       <Heading textAlign="center" as="h3">
         {title}
       </Heading>
