@@ -2,12 +2,15 @@ import P5 from "p5";
 import { Entity } from "./Entity";
 
 class Obstacle implements Entity {
+  private originalVelX: number;
   constructor(
     private x: number,
     private y: number,
     private velx: number,
     private p5: P5
-  ) {}
+  ) {
+    this.originalVelX = velx;
+  }
 
   show(): void {
     this.p5.fill(0);
@@ -39,6 +42,10 @@ class Obstacle implements Entity {
   }
   addSpeed(x: number): void {
     this.velx += x;
+  }
+
+  reset(): void {
+    this.velx = this.originalVelX;
   }
 }
 

@@ -6,4 +6,5 @@ export interface Entity {
   getPosX(): number;
   setPosX(x: number): void;
   addSpeed(x: number): void;
+  reset(): void;
 }

@@ -98,6 +98,8 @@ class Game {
         this.gameOver = false;
         this.gameStarted = true;
         this.initialized = true;
+        this.boy?.reset();
+        this.obstacle?.reset();
         this.obstacle?.setPosX(p5.width);
         this.publishEvent({ name: "game-started" });
       }
@@ -105,13 +107,14 @@ class Game {
     }
     if (this.initialized && this.boy && this.obstacle && this.gameStarted) {
       if (this.boy.collides(this.obstacle)) {
-        this.gameOver = true;
-        this.gameStarted = false;
         this.publishEvent({
           name: "collision",
           props: { body1: this.boy, body2: this.obstacle },
         });
-        this.publishEvent({ name: "game-over" });
+        this.publishEvent({ name: "game-over", props: { score: this.score } });
+        this.gameOver = true;
+        this.gameStarted = false;
+        this.score = 0;
       }
 
       this.boy?.update();

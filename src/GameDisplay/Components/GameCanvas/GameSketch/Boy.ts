@@ -7,6 +7,7 @@ class Boy implements Entity {
   private vely: number;
   private yOffset: number;
   private originalY: number;
+  private originalVelx: number;
   constructor(
     private runAnimation: any[],
     private jumpAnimation: any[],
@@ -20,6 +21,7 @@ class Boy implements Entity {
     this.vely = 0;
     this.yOffset = 137;
     this.originalY = y;
+    this.originalVelx = velx;
   }
 
   show(): void {
@@ -58,6 +60,14 @@ class Boy implements Entity {
 
   addSpeed(x: number): void {
     this.velx += x;
+  }
+
+  reset(): void {
+    this.g = 0.5;
+    this.index = 0;
+    this.vely = 0;
+    this.yOffset = 137;
+    this.velx = this.originalVelx;
   }
 }
 
