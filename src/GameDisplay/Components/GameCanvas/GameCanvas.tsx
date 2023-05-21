@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import { gameSketch } from "./gameSketch";
+import { Game } from "./GameSketch/Game";
 
 interface GameCanvasProps {}
 
@@ -7,13 +7,12 @@ const GameCanvas: React.FC<GameCanvasProps> = () => {
   const sketchRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const { cleanup } = gameSketch({
-      width: 400,
-      height: 400,
-      parent: sketchRef.current as HTMLElement,
-    });
+    const game = new Game(400, 400, sketchRef.current as HTMLElement);
+    game.start();
 
-    return cleanup;
+    return () => {
+      game.end();
+    };
   }, []);
   return <div ref={sketchRef}></div>;
 };
